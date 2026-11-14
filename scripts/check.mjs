@@ -24,7 +24,7 @@ const AWS_PORTS = [35079, 26458];
 
 // Platforms that are not checked live; their state only changes when the user acts.
 const STATIC = {
-  cloady: { status: 'blocked', detail: 'Cloudflare verification not passed' },
+  cloady: { status: 'ready', detail: 'workspace workspace-l61c9f (JPN1) · Free plan · $0.00/mo' },
   kaggle: { status: 'pending', detail: 'needs SMS verification' },
   simular: { status: 'pending', detail: 'needs Google sign-in + phone for first API key' },
   colab: { status: 'pending', detail: 'needs Google account' },
