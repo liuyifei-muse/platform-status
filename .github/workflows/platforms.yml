@@ -34,6 +34,7 @@ jobs:
 
       - name: Run full platform check (read-only)
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           INSTABOX_API_KEY: ${{ secrets.INSTABOX_API_KEY }}
           PROTON_PASSWORD: ${{ secrets.PROTON_PASSWORD }}
           TINKERHOST_PASSWORD: ${{ secrets.TINKERHOST_PASSWORD }}
