@@ -77,7 +77,7 @@ async function checkInstabox() {
   const key = process.env.INSTABOX_API_KEY;
   const machine = { name: INSTABOX_MACHINE_NAME, id: INSTABOX_MACHINE_ID, state: 'unknown' };
   if (!key) {
-    return { status: 'blocked', detail: 'INSTABOX_API_KEY not set', machine };
+    return { status: 'blocked', detail: 'InstaBox API key 未设置，无法查询机器状态（需在仓库 Secrets 里设置 INSTABOX_API_KEY）', machine };
   }
   const url = `https://api.instabox.sh/v1/machines/${INSTABOX_MACHINE_ID}`;
   let lastErr = null;
@@ -88,7 +88,7 @@ async function checkInstabox() {
         signal: AbortSignal.timeout(15000),
       });
       if (res.status === 404) {
-        return { status: 'blocked', detail: 'machine not found (HTTP 404)', machine };
+        return { status: 'blocked', detail: '机器在 InstaBox 上找不到了（HTTP 404，可能已被删除），请检查仪表盘', machine };
       }
       if (!res.ok) {
         lastErr = new Error(`HTTP ${res.status}`);
@@ -100,7 +100,7 @@ async function checkInstabox() {
         ? data.find((x) => x && x.id === INSTABOX_MACHINE_ID)
         : data && (data.machine || data);
       if (!m) {
-        return { status: 'blocked', detail: 'machine not found in API response', machine };
+        return { status: 'blocked', detail: '接口返回里没有这台机器（可能已被删除或接口异常），请检查仪表盘', machine };
       }
       const state = String(m.state ?? m.status ?? '').toLowerCase() || 'unknown';
       machine.state = state;
@@ -116,7 +116,7 @@ async function checkInstabox() {
   }
   return {
     status: 'blocked',
-    detail: `API check failed after retries (${lastErr ? lastErr.message : 'unknown error'})`,
+    detail: `InstaBox 接口多次请求失败，无法确认机器状态（${lastErr ? lastErr.message : '未知错误'}，可能是网络问题或接口故障），下次检查会重试`,
     machine,
   };
 }
@@ -128,14 +128,17 @@ async function checkGithub() {
       headers: { 'User-Agent': 'platform-status-check', Accept: 'application/vnd.github+json' },
       signal: AbortSignal.timeout(15000),
     });
-    if (!res.ok) return { status: 'blocked', detail: `GitHub API HTTP ${res.status}` };
+    if (!res.ok) {
+      if (res.status === 403) return { status: 'blocked', detail: 'GitHub 接口返回 403（可能是限流，稍后恢复；账号本身不受影响）' };
+      return { status: 'blocked', detail: `GitHub 接口返回 HTTP ${res.status}（账号本身不受影响）` };
+    }
     const data = await res.json();
     if (data && data.login === GITHUB_USER) {
       return { status: 'ready', detail: `user ${GITHUB_USER} exists` };
     }
-    return { status: 'blocked', detail: 'GitHub user login mismatch' };
+    return { status: 'blocked', detail: 'GitHub 用户名不符（账号可能有变化，请检查）' };
   } catch (e) {
-    return { status: 'blocked', detail: `GitHub API unreachable (${e.message})` };
+    return { status: 'blocked', detail: `无法访问 GitHub 接口（${e.message}，网络问题；账号本身不受影响）` };
   }
 }
 
@@ -159,9 +162,9 @@ async function checkLxi() {
       if (preparing) return { status: 'ready', detail: 'hosting In preparation (HTTP 200)' };
       return { status: 'ready', detail: 'hosting live (HTTP 200)' };
     }
-    return { status: 'blocked', detail: `HTTP ${res.status}` };
+    return { status: 'blocked', detail: `子域名返回 HTTP ${res.status}（托管可能未开通或网站异常）` };
   } catch (e) {
-    return { status: 'blocked', detail: `site unreachable (${e.message})` };
+    return { status: 'blocked', detail: '子域名无法访问：免费托管可能仍在开通中（确认邮箱后最长 24 小时，付费优先），开通后即可访问；账号本身正常' };
   }
 }
 
@@ -198,7 +201,7 @@ async function checkAws() {
   if (open.length > 0) {
     return { status: 'ready', detail: `port ${open.join(', ')} answering, ${closed.join(', ')} closed` };
   }
-  return { status: 'blocked', detail: 'ports not answering' };
+  return { status: 'blocked', detail: '节点端口无响应（节点可能离线或网络问题，请检查 AWS 控制台）' };
 }
 
 // ---------------------------------------------------------------- Playwright logins
@@ -277,7 +280,7 @@ async function withBrowser(fn) {
 }
 
 async function loginCheck({ name, url, username, password, userSels, passSels, readyDetail, fallback }) {
-  if (!password) return { status: 'blocked', detail: 'login check failed' };
+  if (!password) return { status: 'blocked', detail: '登录检查缺少密码（仓库 Secrets 未设置对应密码，无法登录检查）' };
   try {
     return await withBrowser(async (browser) => {
       const page = await browser.newPage();
@@ -302,8 +305,9 @@ async function loginCheck({ name, url, username, password, userSels, passSels, r
       if (!ok) throw new Error('login did not complete');
       return { status: 'ready', detail: readyDetail };
     });
-  } catch {
-    return { status: 'blocked', detail: 'login check failed' };
+  } catch (e) {
+    const reason = e && e.message ? e.message : '未知错误';
+    return { status: 'blocked', detail: `自动登录检查未通过（${reason}；账号此前正常，可能是检查时页面加载慢、登录表单变化或网站暂时异常，不代表账号被封或密码错误，下次检查会重试）` };
   }
 }
 
