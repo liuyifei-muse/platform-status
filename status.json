@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-14T15:09:27.749Z",
+  "updated_at": "2026-11-14T15:55:43.241Z",
   "platforms": {
     "proton": {
       "status": "ready",
@@ -22,8 +22,8 @@
       "detail": "account loads"
     },
     "cloady": {
-      "status": "blocked",
-      "detail": "Cloudflare verification not passed"
+      "status": "ready",
+      "detail": "workspace workspace-l61c9f (JPN1) · Free plan · $0.00/mo"
     },
     "instabox": {
       "status": "ready",
