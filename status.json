@@ -1,13 +1,13 @@
 {
-  "updated_at": "2026-11-14T16:08:47.883Z",
+  "updated_at": "2026-11-14T16:11:08.571Z",
   "platforms": {
     "proton": {
       "status": "ready",
       "detail": "inbox loads"
     },
     "github": {
-      "status": "ready",
-      "detail": "user liuyifei-muse exists"
+      "status": "blocked",
+      "detail": "GitHub API HTTP 403"
     },
     "lxi": {
       "status": "blocked",
@@ -39,8 +39,8 @@
       "detail": "needs SMS verification"
     },
     "simular": {
-      "status": "pending",
-      "detail": "needs Google sign-in + phone for first API key"
+      "status": "ready",
+      "detail": "box main (Asleep) · Box Free · 5000 credits left"
     },
     "colab": {
       "status": "pending",
