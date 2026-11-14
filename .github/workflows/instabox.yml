@@ -1,0 +1,44 @@
+name: InstaBox status check
+
+# Checks ONLY the InstaBox cloud PC via its API every 30 minutes and merges the
+# result into status.json. No browser, no Playwright, no passwords involved.
+# Fast and light so the 30-minute cadence stays cheap on Actions minutes.
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Check InstaBox machine (API, read-only)
+        env:
+          INSTABOX_API_KEY: ${{ secrets.INSTABOX_API_KEY }}
+        run: node scripts/check.mjs instabox
+
+      - name: Commit status.json if changed
+        run: |
+          if git diff --quiet -- status.json; then
+            echo "No changes."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add status.json
+            git commit -m "Update InstaBox status [skip ci]"
+            git push
+          fi

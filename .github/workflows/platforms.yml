@@ -1,0 +1,53 @@
+name: Platform status check
+
+# Full check of all 11 platforms every 6 hours. API/HTTP/TCP checks for the
+# lightweight platforms, Playwright logins only for Proton, TinkerHost and
+# AeonFree. A failed login is recorded as "login check failed" and the run
+# continues with the others; one failure never aborts the whole run.
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies (Playwright + Chromium)
+        run: |
+          npm install
+          npx playwright install --with-deps chromium
+
+      - name: Run full platform check (read-only)
+        env:
+          INSTABOX_API_KEY: ${{ secrets.INSTABOX_API_KEY }}
+          PROTON_PASSWORD: ${{ secrets.PROTON_PASSWORD }}
+          TINKERHOST_PASSWORD: ${{ secrets.TINKERHOST_PASSWORD }}
+          AEONFREE_PASSWORD: ${{ secrets.AEONFREE_PASSWORD }}
+        run: node scripts/check.mjs all
+
+      - name: Commit status.json if changed
+        run: |
+          if git diff --quiet -- status.json; then
+            echo "No changes."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add status.json
+            git commit -m "Update platform statuses [skip ci]"
+            git push
+          fi
