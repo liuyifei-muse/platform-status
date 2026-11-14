@@ -1,54 +1,54 @@
 {
+  "updated_at": "2026-11-14T13:19:23.366Z",
   "platforms": {
-    "aeonfree": {
-      "detail": "account loads",
-      "status": "ready"
-    },
-    "aws": {
-      "detail": "ports answering",
-      "status": "ready"
-    },
-    "cloady": {
-      "detail": "Cloudflare verification not passed",
-      "status": "blocked"
-    },
-    "colab": {
-      "detail": "needs Google account",
-      "status": "pending"
+    "proton": {
+      "status": "ready",
+      "detail": "inbox loads"
     },
     "github": {
-      "detail": "user liuyifei-muse exists",
-      "status": "ready"
+      "status": "ready",
+      "detail": "user liuyifei-muse exists"
+    },
+    "lxi": {
+      "status": "blocked",
+      "detail": "site unreachable (fetch failed)"
+    },
+    "tinkerhost": {
+      "status": "blocked",
+      "detail": "login check failed"
+    },
+    "aeonfree": {
+      "status": "ready",
+      "detail": "account loads"
+    },
+    "cloady": {
+      "status": "blocked",
+      "detail": "Cloudflare verification not passed"
     },
     "instabox": {
       "status": "ready",
-      "detail": "machine muse-free-01 Running",
+      "detail": "machine muse-free-01 Suspended",
       "machine": {
         "name": "muse-free-01",
         "id": "m_agq5ufdgypuf6tjhgd22r3ib2u",
-        "state": "running"
+        "state": "suspended"
       }
     },
     "kaggle": {
-      "detail": "needs SMS verification",
-      "status": "pending"
-    },
-    "lxi": {
-      "detail": "hosting In preparation",
-      "status": "ready"
-    },
-    "proton": {
-      "detail": "inbox loads",
-      "status": "ready"
+      "status": "pending",
+      "detail": "needs SMS verification"
     },
     "simular": {
-      "detail": "needs Google sign-in + phone for first API key",
-      "status": "pending"
+      "status": "pending",
+      "detail": "needs Google sign-in + phone for first API key"
     },
-    "tinkerhost": {
-      "detail": "dashboard loads",
-      "status": "ready"
+    "colab": {
+      "status": "pending",
+      "detail": "needs Google account"
+    },
+    "aws": {
+      "status": "ready",
+      "detail": "ports 35079, 26458 answering"
     }
-  },
-  "updated_at": "2026-11-14T13:12:30.309Z"
+  }
 }
