@@ -1,1 +1,54 @@
-{"platforms":{"aeonfree":{"detail":"account loads","status":"ready"},"aws":{"detail":"ports answering","status":"ready"},"cloady":{"detail":"Cloudflare verification not passed","status":"blocked"},"colab":{"detail":"needs Google account","status":"pending"},"github":{"detail":"user liuyifei-muse exists","status":"ready"},"instabox":{"detail":"machine muse-free-01 Running","machine":{"id":"m_agq5ufdgypuf6tjhgd22r3ib2u","name":"muse-free-01","state":"running"},"status":"ready"},"kaggle":{"detail":"needs SMS verification","status":"pending"},"lxi":{"detail":"hosting In preparation","status":"ready"},"proton":{"detail":"inbox loads","status":"ready"},"simular":{"detail":"needs Google sign-in + phone for first API key","status":"pending"},"tinkerhost":{"detail":"dashboard loads","status":"ready"}},"updated_at":"2026-11-14T13:02:32Z"}
+{
+  "platforms": {
+    "aeonfree": {
+      "detail": "account loads",
+      "status": "ready"
+    },
+    "aws": {
+      "detail": "ports answering",
+      "status": "ready"
+    },
+    "cloady": {
+      "detail": "Cloudflare verification not passed",
+      "status": "blocked"
+    },
+    "colab": {
+      "detail": "needs Google account",
+      "status": "pending"
+    },
+    "github": {
+      "detail": "user liuyifei-muse exists",
+      "status": "ready"
+    },
+    "instabox": {
+      "status": "ready",
+      "detail": "machine muse-free-01 Running",
+      "machine": {
+        "name": "muse-free-01",
+        "id": "m_agq5ufdgypuf6tjhgd22r3ib2u",
+        "state": "running"
+      }
+    },
+    "kaggle": {
+      "detail": "needs SMS verification",
+      "status": "pending"
+    },
+    "lxi": {
+      "detail": "hosting In preparation",
+      "status": "ready"
+    },
+    "proton": {
+      "detail": "inbox loads",
+      "status": "ready"
+    },
+    "simular": {
+      "detail": "needs Google sign-in + phone for first API key",
+      "status": "pending"
+    },
+    "tinkerhost": {
+      "detail": "dashboard loads",
+      "status": "ready"
+    }
+  },
+  "updated_at": "2026-11-14T13:12:30.309Z"
+}
