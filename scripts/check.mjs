@@ -26,7 +26,7 @@ const AWS_PORTS = [35079, 26458];
 const STATIC = {
   cloady: { status: 'ready', detail: 'workspace workspace-l61c9f (JPN1) · Free plan · $0.00/mo' },
   kaggle: { status: 'pending', detail: 'needs SMS verification' },
-  simular: { status: 'pending', detail: 'needs Google sign-in + phone for first API key' },
+  simular: { status: 'ready', detail: 'box main (Asleep) · Box Free · 5000 credits left' },
   colab: { status: 'pending', detail: 'needs Google account' },
 };
 
