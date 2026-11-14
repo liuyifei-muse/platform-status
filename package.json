@@ -1,0 +1,1 @@
+{"dependencies":{"playwright":"^1.49.1"},"description":"Scheduled status checks for free platforms; writes status.json","name":"platform-status","private":true,"scripts":{"check:all":"node scripts/check.mjs all","check:instabox":"node scripts/check.mjs instabox"},"type":"module","version":"1.0.0"}
