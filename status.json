@@ -1,17 +1,17 @@
 {
-  "updated_at": "2026-11-20T11:50:21.798Z",
+  "updated_at": "2026-11-20T12:52:50.333Z",
   "platforms": {
     "proton": {
-      "status": "ready",
-      "detail": "inbox loads"
+      "status": "blocked",
+      "detail": "自动登录检查未通过（password field not found；账号此前正常，可能是检查时页面加载慢、登录表单变化或网站暂时异常，不代表账号被封或密码错误，下次检查会重试）"
     },
     "github": {
       "status": "ready",
       "detail": "user liuyifei-muse exists"
     },
     "lxi": {
-      "status": "ready",
-      "detail": "hosting live (HTTP 200)"
+      "status": "pending",
+      "detail": "子域名暂时无法访问：免费托管可能仍在开通中（确认邮箱后最长 24 小时，付费优先），开通后即可访问；账号本身正常"
     },
     "tinkerhost": {
       "status": "ready",
