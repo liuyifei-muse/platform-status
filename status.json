@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-25T00:13:24.454Z",
+  "updated_at": "2026-11-25T00:49:04.757Z",
   "platforms": {
     "proton": {
       "status": "ready",
@@ -10,8 +10,8 @@
       "detail": "user liuyifei-muse exists"
     },
     "lxi": {
-      "status": "ready",
-      "detail": "hosting live (HTTP 200)"
+      "status": "pending",
+      "detail": "子域名暂时无法访问：免费托管可能仍在开通中（确认邮箱后最长 24 小时，付费优先），开通后即可访问；账号本身正常"
     },
     "tinkerhost": {
       "status": "ready",
