@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-25T17:49:12.674Z",
+  "updated_at": "2026-11-25T18:39:57.291Z",
   "platforms": {
     "proton": {
       "status": "ready",
@@ -10,8 +10,8 @@
       "detail": "user liuyifei-muse exists"
     },
     "lxi": {
-      "status": "blocked",
-      "detail": "子域名返回 HTTP 503（托管可能未开通或网站异常）"
+      "status": "ready",
+      "detail": "hosting live (HTTP 200)"
     },
     "tinkerhost": {
       "status": "ready",
